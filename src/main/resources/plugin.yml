@@ -1,0 +1,26 @@
+name: VoiceChatArea
+version: '1.0-SNAPSHOT'
+main: elixius.proxychat.voiceChatArea.VoiceChatArea
+api-version: '1.21'
+prefix: VAC
+authors: [ Leito ]
+description: A system to hook and manage simple voice chat with WorldGuard
+depend:
+  - WorldGuard
+  - voicechat
+
+commands:
+  voicechatarea:
+    description: VoiceChatArea main command
+    usage: /voicechatarea <subcommand>
+    aliases: [vca]
+    permission: voicechatarea.use
+    permission-message: You don't have permission to use this command.
+
+permissions:
+  voicechatarea.use:
+    default: true
+    description: Allows using basic info command
+  voicechatarea.admin:
+    default: op
+    description: Allows managing region links
