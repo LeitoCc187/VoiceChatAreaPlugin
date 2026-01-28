@@ -102,7 +102,7 @@ links:
 ## 🔧 Technical Details
 
 - **Storage:** File-based (YAML) - no database required
-- **Performance: Event-driven with minimal tick overhead
+- **Performance:** Event-driven with minimal tick overhead
 - **Compatibility:** Works with existing WorldGuard regions; no region flags required
 - **Cleanup:** Automatic group deletion prevents memory leaks
 
