@@ -3,6 +3,7 @@ package elixius.proxychat.voiceChatArea.commands;
 import elixius.proxychat.voiceChatArea.VoiceChatArea;
 import elixius.proxychat.voiceChatArea.link.RegionLinkManager;
 import elixius.proxychat.voiceChatArea.voice.VoiceGroupManager;
+import elixius.proxychat.voiceChatArea.wg.WorldGuardUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -11,6 +12,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VoiceChatCommand implements CommandExecutor, TabCompleter {
 
@@ -137,6 +139,7 @@ public class VoiceChatCommand implements CommandExecutor, TabCompleter {
         List<String> completions = new ArrayList<>();
 
         if (args.length == 1) {
+            // First argument - subcommands
             completions.add("info");
             if (sender.hasPermission("voicechatarea.admin")) {
                 completions.add("link");
@@ -145,8 +148,28 @@ public class VoiceChatCommand implements CommandExecutor, TabCompleter {
                 completions.add("list");
                 completions.add("reload");
             }
+        } else if (args.length >= 2 && sender instanceof Player player) {
+            // Second argument and beyond - suggest region names
+            String sub = args[0].toLowerCase();
+
+            // Only suggest regions for commands that need them
+            if (sub.equals("link") || sub.equals("setgroup") || sub.equals("unlink")) {
+                // Get regions at player's current location
+                completions.addAll(WorldGuardUtil.getRegionsAt(player.getLocation()));
+
+                // Also add existing linked regions (in case they want to manage linked regions they aren't standing in)
+                completions.addAll(linkManager.getAllLinks().keySet());
+                completions.addAll(linkManager.getAllLinks().values());
+
+                // Remove duplicates
+                completions = completions.stream().distinct().collect(Collectors.toList());
+            }
         }
 
-        return completions;
+        // Filter completions based on what the user has already typed
+        String lastArg = args[args.length - 1].toLowerCase();
+        return completions.stream()
+                .filter(s -> s.toLowerCase().startsWith(lastArg))
+                .collect(Collectors.toList());
     }
 }
