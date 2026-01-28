@@ -23,7 +23,7 @@ public class VoiceChatArea extends JavaPlugin implements VoicechatPlugin {
     private RegionLinkManager linkManager;
 
     // Update checker settings
-    private static final String UPDATE_CHECK_URL = "https://api.github.com/repos/YOURUSERNAME/VoiceChatArea/releases/latest";
+    private static final String UPDATE_CHECK_URL = "https://api.github.com/repos/LeitoCc187/VoiceChatAreaPlugin/releases/latest";
 
     private boolean updateAvailable = false;
     private String latestVersion = "";
@@ -109,7 +109,7 @@ public class VoiceChatArea extends JavaPlugin implements VoicechatPlugin {
                         getLogger().warning("A new version of VoiceChatArea is available!");
                         getLogger().warning("Current: " + current);
                         getLogger().warning("Latest: " + latestVersion);
-                        getLogger().warning("Download: https://github.com/YOURUSERNAME/VoiceChatArea/releases");
+                        getLogger().warning("Download: https://www.spigotmc.org/resources/voicechatarea.132138/");
                         getLogger().warning("===============================================");
                     } else {
                         getLogger().info("You are running the latest version!");
@@ -150,7 +150,7 @@ public class VoiceChatArea extends JavaPlugin implements VoicechatPlugin {
                 getServer().getScheduler().runTaskLater(VoiceChatArea.this, () -> {
                     player.sendMessage("§6[VoiceChatArea] §eAn update is available! §7(" +
                             getDescription().getVersion() + " → " + latestVersion + ")");
-                    player.sendMessage("§6[VoiceChatArea] §eDownload: §fhttps://github.com/YOURUSERNAME/VoiceChatArea/releases");
+                    player.sendMessage("§6[VoiceChatArea] §eDownload: §fhttps://www.spigotmc.org/resources/voicechatarea.132138/");
                 }, 40L); // 2 second delay after join
             }
         }

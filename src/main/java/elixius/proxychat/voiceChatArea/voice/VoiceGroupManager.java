@@ -39,7 +39,7 @@ public class VoiceGroupManager {
 
         // Get or create the group for this linked ID
         Group group = regionGroups.computeIfAbsent(groupId,
-                id -> voiceApi.createGroup("voicearea_" + id, "Voice Area: " + id));
+                id -> voiceApi.createGroup(id, "Voice Area: " + id));
 
         connection.setGroup(group);
         playerRegions.put(player.getUniqueId(), regionId);
