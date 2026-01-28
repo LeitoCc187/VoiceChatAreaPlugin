@@ -95,6 +95,7 @@ links:
   shop1: spawn
   shop2: spawn
   secrethq: Black_Ops_Channel
+```
 Note: All configuration is managed via in-game commands. Edit links.yml manually only if you know what you're doing, then use /vca reload.
 🔧 Technical Details
 Storage: File-based (YAML) - no database required
