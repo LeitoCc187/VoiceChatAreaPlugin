@@ -1,8 +1,8 @@
 name: VoiceChatArea
-version: '1.0.6'
+version: '1.0.7'
 main: elixius.proxychat.voiceChatArea.VoiceChatArea
 api-version: '1.21'
-prefix: VAC
+prefix: VCA
 authors: [ Leito ]
 description: A system to hook and manage simple voice chat with WorldGuard
 depend:
