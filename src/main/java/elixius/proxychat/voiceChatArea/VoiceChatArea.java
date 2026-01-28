@@ -10,15 +10,11 @@ import elixius.proxychat.voiceChatArea.listeners.PlayerQuitListener;
 import elixius.proxychat.voiceChatArea.listeners.RegionMoveListener;
 import elixius.proxychat.voiceChatArea.updates.UpdateChecker;
 import elixius.proxychat.voiceChatArea.voice.VoiceGroupManager;
-import org.bstats.bukkit.Metrics;
-import org.bstats.charts.SimplePie;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.concurrent.Callable;
 
 public class VoiceChatArea extends JavaPlugin implements VoicechatPlugin {
 
@@ -26,10 +22,8 @@ public class VoiceChatArea extends JavaPlugin implements VoicechatPlugin {
     private VoicechatServerApi api;
     private RegionLinkManager linkManager;
 
-    // Configuration constants
-    private static final int BSTATS_PLUGIN_ID = 21842; // CHANGE THIS! Get from bstats.org
-    private static final String UPDATE_CHECK_URL = "https://api.github.com/repos/YOURUSERNAME/VoiceChatArea/releases/latest"; // CHANGE THIS!
-    private static final String SPIGOT_RESOURCE_ID = "123456"; // CHANGE THIS if using Spigot
+    // Update checker settings
+    private static final String UPDATE_CHECK_URL = "https://api.github.com/repos/YOURUSERNAME/VoiceChatArea/releases/latest";
 
     private boolean updateAvailable = false;
     private String latestVersion = "";
@@ -43,9 +37,6 @@ public class VoiceChatArea extends JavaPlugin implements VoicechatPlugin {
     public void onEnable() {
         // Initialize link manager (creates links.yml if needed)
         this.linkManager = new RegionLinkManager(this);
-
-        // Initialize bStats Metrics
-        initMetrics();
 
         BukkitVoicechatService service = getServer().getServicesManager()
                 .load(BukkitVoicechatService.class);
@@ -103,28 +94,6 @@ public class VoiceChatArea extends JavaPlugin implements VoicechatPlugin {
         this.manager = null;
     }
 
-    private void initMetrics() {
-        Metrics metrics = new Metrics(this, BSTATS_PLUGIN_ID);
-
-        // Add custom chart for linked regions count
-        metrics.addCustomChart(new SimplePie("linked_regions", new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                return String.valueOf(linkManager.getAllLinks().size());
-            }
-        }));
-
-        // Add chart for whether update is available
-        metrics.addCustomChart(new SimplePie("update_available", new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                return updateAvailable ? "Yes" : "No";
-            }
-        }));
-
-        getLogger().info("bStats metrics enabled!");
-    }
-
     private void checkForUpdates() {
         // Run async to not block server startup
         getServer().getScheduler().runTaskAsynchronously(this, () -> {
@@ -140,7 +109,7 @@ public class VoiceChatArea extends JavaPlugin implements VoicechatPlugin {
                         getLogger().warning("A new version of VoiceChatArea is available!");
                         getLogger().warning("Current: " + current);
                         getLogger().warning("Latest: " + latestVersion);
-                        getLogger().warning("Download: https://github.com/LeitoCc187/VoiceChatAreaPlugin/releases");
+                        getLogger().warning("Download: https://github.com/YOURUSERNAME/VoiceChatArea/releases");
                         getLogger().warning("===============================================");
                     } else {
                         getLogger().info("You are running the latest version!");
