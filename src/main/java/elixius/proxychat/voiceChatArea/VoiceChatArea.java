@@ -103,7 +103,7 @@ public class VoiceChatArea extends JavaPlugin implements VoicechatPlugin {
                     latestVersion = checker.getLatestVersion();
                     String current = getDescription().getVersion();
 
-                    if (!current.equalsIgnoreCase(latestVersion)) {
+                    if (!current.equalsIgnoreCase("Release." + latestVersion)) {
                         updateAvailable = true;
                         getLogger().warning("===============================================");
                         getLogger().warning("A new version of VoiceChatArea is available!");
